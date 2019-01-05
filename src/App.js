@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react'
+import { Dropdown, Container, Grid } from 'semantic-ui-react'
 
+import { stateOptions } from './common/data'
 import Card from './components/Card'
+import Navbar from './components/Navbar'
 import './App.css';
 
 // API TOKEN
@@ -13,13 +15,18 @@ const DEVICES = '/devices'
 class App extends Component {
 
   state = {
+    selectedOption: null,
     isLoading: true,
     sensors: [],
     error: null
   }
 
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  }
+
   fetchUsers() {
-    console.log( process.env )
     fetch(`${ORIGIN + DEVICES}`, {
       method: 'GET',
       headers: {
@@ -45,39 +52,40 @@ class App extends Component {
   }
 
   render() {
-    const { isLoading, sensors, error } = this.state;
+    const { isLoading, sensors, error, selectedOption } = this.state;
+
     return (
-    <React.Fragment>
-      <Container>
-        <h1> Sensors</h1>
-        <div className='layout-grid'>
-          { error ? <p> { error.message } </p> : null }
-          {!isLoading ? (
-            sensors.map( sensor => {
-              const { 
-                id, 
-                serialNumber, 
-                name, 
-                aliveTime, 
-                status, 
-                signalStrength,
-                positionTime,
-                positionLatitude, 
-                positionLongitude } = sensor;
-              return (
-                <div className='sensor' data-id={ id }>
-                  <div className='form-group' key={ id }>
-                    <Card sensor={ sensor }></Card>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <h3> Loading... </h3>
-          )}
-        </div>
-      </Container>
-    </React.Fragment>
+      <React.Fragment>
+        <Container>
+          <Navbar />
+          <h1> Sensors</h1>
+          <Dropdown placeholder='Filter Sensors' fluid multiple search selection options={stateOptions} />
+          <Grid columns={2}>
+            <Grid.Column>
+              <Grid doubling columns={ 2 }>
+                { error ? <p> { error.message } </p> : null }
+                {!isLoading ? (
+                  sensors.sort((a,b) => {
+                    return new Date(a.aliveTime).getTime() - 
+                        new Date(b.aliveTime).getTime()
+                  }).reverse().map( sensor => {
+                    return (
+                      <Grid.Column>
+                        <Card sensor={ sensor } data-id={ sensor.id }></Card>
+                      </Grid.Column>
+                    );
+                  })
+                ) : (
+                  <h3> Loading... </h3>
+                )}
+              </Grid>
+            </Grid.Column>
+            <Grid.Column>
+
+            </Grid.Column>
+          </Grid>
+        </Container>
+      </React.Fragment>
     )
   }
 }

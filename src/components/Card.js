@@ -1,31 +1,42 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon } from 'semantic-ui-react'
 import Moment from 'react-moment';
+
+const truncate = ( (string, length) => {
+  if (string.length > length)
+    return string.slice(0, length) + '...'
+  else
+    return string
+});
 
 const CardExampleCard = ( props ) => (
   <Card>
     {/* <Image src={ props.image } /> */} 
+    <Card.Content extra>
+      <p><Icon name='podcast' size='large' /> Device ID: { props.sensor.id }</p>
+    </Card.Content>
+    
     <Card.Content>
-      <Card.Header> { props.name } </Card.Header>
+      <Card.Header>
+        { truncate(props.sensor.name, 18) }
+      </Card.Header>
       <Card.Meta>
-        <span className='date'>{ props.status }</span>
+        <span className='date'>{ props.sensor.status }</span>
       </Card.Meta>
       <Card.Description>
-        <input type='checkbox' />
-        <p><strong>Serial Number:</strong> { props.sensor.serialNumber }</p>
-        <p><strong>Alive Time:</strong> <Moment format="DD/MM/YYYY">{ props.sensor.aliveTime }</Moment></p>
-        <p><strong>Signal Strength:</strong> { props.sensor.signalStrength }</p>
-        <p><strong>Device Position Time:</strong>
-          <Moment format="DD/MM/YYYY">{ props.sensor.positionTime }</Moment>
-        </p>
-        <p><strong>Device Position Lat:</strong> { props.sensor.positionLatitude }</p>
-        <p><strong>Device Position Long:</strong> { props.sensor.positionLongitude }</p>
+        <strong>Serial Number:</strong>
+        <p>{ props.sensor.serialNumber }</p>
+        <strong>Alive Time:</strong>
+        <p><Moment format="DD/MM/YYYY - hh:mm:ss A">{ props.sensor.aliveTime }</Moment></p>
+        <strong>Signal Strength:</strong>
+        <p>{ props.sensor.signalStrength }</p>
+        <strong>Device Position Time:</strong>
+        <p><Moment className='datetime'>{ props.sensor.positionTime }</Moment></p>
+        <strong>Device Position Lat:</strong>
+        <p>{ props.sensor.positionLatitude }</p>
+        <strong>Device Position Long:</strong>
+        <p>{ props.sensor.positionLongitude }</p>
       </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' /> Device ID: { props.sensor.id }
-      </a>
     </Card.Content>
   </Card>
 )
