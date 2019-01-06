@@ -1,31 +1,42 @@
 import React from 'react'
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon } from 'semantic-ui-react'
 import Moment from 'react-moment';
+
+const truncate = ( (string, length) => {
+  if (string.length > length)
+    return string.slice(0, length) + '...'
+  else
+    return string
+});
 
 const CardExampleCard = ( props ) => (
   <Card>
     {/* <Image src={ props.image } /> */} 
+    <Card.Content extra>
+      <p><Icon name='podcast' size='large' /> Device ID: { props.sensor.id }</p>
+    </Card.Content>
+    
     <Card.Content>
-      <Card.Header> { props.name } </Card.Header>
+      <Card.Header>
+        { truncate(props.sensor.name, 18) }
+      </Card.Header>
       <Card.Meta>
-        <span className='date'>{ props.status }</span>
+        <span className='date'>{ props.sensor.status }</span>
       </Card.Meta>
       <Card.Description>
-        <input type='checkbox' />
-        <p><strong>Serial Number:</strong> { props.sensor.serialNumber }</p>
-        <p><strong>Alive Time:</strong> <Moment format="DD/MM/YYYY">{ props.sensor.aliveTime }</Moment></p>
-        <p><strong>Signal Strength:</strong> { props.sensor.signalStrength }</p>
-        <p><strong>Device Position Time:</strong>
-          <Moment format="DD/MM/YYYY">{ props.sensor.positionTime }</Moment>
-        </p>
-        <p><strong>Device Position Lat:</strong> { props.sensor.positionLatitude }</p>
-        <p><strong>Device Position Long:</strong> { props.sensor.positionLongitude }</p>
+        <h4 className='card-description-title'>Serial Number:</h4>
+        <p className='card-description-text'>{ props.sensor.serialNumber }</p>
+        <h4 className='card-description-title'>Alive Time:</h4>
+        <p className='card-description-text'><Moment format="DD/MM/YYYY - hh:mm:ss A">{ props.sensor.aliveTime }</Moment></p>
+        <h4 className='card-description-title'>Signal Strength:</h4>
+        <p className='card-description-text'>{ props.sensor.signalStrength }</p>
+        <h4 className='card-description-title'>Device Position Time:</h4>
+        <p className='card-description-text'><Moment className='datetime'>{ props.sensor.positionTime }</Moment></p>
+        <h4 className='card-description-title'>Device Position Lat:</h4>
+        <p className='card-description-text'>{ props.sensor.positionLatitude }</p>
+        <h4 className='card-description-title'>Device Position Long:</h4>
+        <p className='card-description-text'>{ props.sensor.positionLongitude }</p>
       </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-        <Icon name='user' /> Device ID: { props.sensor.id }
-      </a>
     </Card.Content>
   </Card>
 )

@@ -1,9 +1,11 @@
 :root {
   --font: 'Share Tech Mono', monospace;
+  --bold: 800;
 }
 
 body, h1, h2, h3, h4, h5, h6 {
   font-family: var(--font);
+  font-weight: var(--bold);
 }
 
 .App {
@@ -29,6 +31,51 @@ body, h1, h2, h3, h4, h5, h6 {
 .App-link {
   color: #61dafb;
 }
+
+.ui.card, .ui.cards>.card {
+  min-height: 100%;
+}
+
+.ui.container {
+  padding: 50px 0;
+}
+
+.header .company {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.company--name {
+  font-family: 'Kanit', sans-serif;
+  z-index: 1;
+  position: relative;
+  left: 70px;
+}
+
+.company--prefix {
+  position: absolute;
+  top: 5px;
+  left: 70px;
+}
+
+.header--icon {
+  position: absolute;
+  -webkit-animation:App-logo-spin 2s linear infinite;
+  -moz-animation:App-logo-spin 2s linear infinite;
+  animation:App-logo-spin 2s linear infinite;
+}
+
+.card-description-title {
+  margin: 0;
+  padding: 3px 0;
+  text-decoration: underline;
+}
+
+.card-description-text {
+  margin-bottom: 10px;
+  font-weight: 100;
+}
+
 
 @keyframes App-logo-spin {
   from {
