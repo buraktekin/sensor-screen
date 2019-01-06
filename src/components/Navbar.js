@@ -21,25 +21,12 @@ export default class Navbar extends Component {
           />
         </Menu.Item>
 
-        <Menu.Item
-          name='features'
-          active={activeItem === 'features'}
-          onClick={this.handleItemClick}
-        >
-          Features
-        </Menu.Item>
-
-        <Menu.Item
-          name='testimonials'
-          active={activeItem === 'testimonials'}
-          onClick={this.handleItemClick}
-        >
-          Testimonials
-        </Menu.Item>
-
-        <Menu.Item name='sign-in' active={activeItem === 'sign-in'} onClick={this.handleItemClick}>
+        {/* 
+        Menu Item Example
+        <Menu.Item name='name' active={activeItem === 'name'} onClick={this.handleItemClick}>
           Sign-in
         </Menu.Item>
+        */}
       </Menu>
     )
   }

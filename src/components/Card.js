@@ -24,18 +24,18 @@ const CardExampleCard = ( props ) => (
         <span className='date'>{ props.sensor.status }</span>
       </Card.Meta>
       <Card.Description>
-        <strong>Serial Number:</strong>
-        <p>{ props.sensor.serialNumber }</p>
-        <strong>Alive Time:</strong>
-        <p><Moment format="DD/MM/YYYY - hh:mm:ss A">{ props.sensor.aliveTime }</Moment></p>
-        <strong>Signal Strength:</strong>
-        <p>{ props.sensor.signalStrength }</p>
-        <strong>Device Position Time:</strong>
-        <p><Moment className='datetime'>{ props.sensor.positionTime }</Moment></p>
-        <strong>Device Position Lat:</strong>
-        <p>{ props.sensor.positionLatitude }</p>
-        <strong>Device Position Long:</strong>
-        <p>{ props.sensor.positionLongitude }</p>
+        <h4 className='card-description-title'>Serial Number:</h4>
+        <p className='card-description-text'>{ props.sensor.serialNumber }</p>
+        <h4 className='card-description-title'>Alive Time:</h4>
+        <p className='card-description-text'><Moment format="DD/MM/YYYY - hh:mm:ss A">{ props.sensor.aliveTime }</Moment></p>
+        <h4 className='card-description-title'>Signal Strength:</h4>
+        <p className='card-description-text'>{ props.sensor.signalStrength }</p>
+        <h4 className='card-description-title'>Device Position Time:</h4>
+        <p className='card-description-text'><Moment className='datetime'>{ props.sensor.positionTime }</Moment></p>
+        <h4 className='card-description-title'>Device Position Lat:</h4>
+        <p className='card-description-text'>{ props.sensor.positionLatitude }</p>
+        <h4 className='card-description-title'>Device Position Long:</h4>
+        <p className='card-description-text'>{ props.sensor.positionLongitude }</p>
       </Card.Description>
     </Card.Content>
   </Card>
