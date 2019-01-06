@@ -47,10 +47,10 @@ class App extends Component {
     fetch(`${ORIGIN + DEVICES}`, {
       method: 'GET',
       headers: {
-        'Authorization': 'Basic ' + process.env.REACT_APP_SENSEFINITY_TOKEN,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Machinates-Application-Key' : 'machinates'
+        'Authorization': 'Basic ' + process.env.REACT_APP_SENSEFINITY_TOKEN,
+        'X-Machinates-Application-Key': process.env.REACT_APP_XMACHINATES_APPLICATION_KEY
       }
     }).then(response => response.json())
       .then(data => {
