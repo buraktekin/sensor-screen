@@ -8,10 +8,14 @@ import './App.css';
 // API TOKEN
 require('dotenv').config()
 
-const ORIGIN = 'https://api.sensefinity.com';
+const ORIGIN = 'https://api.sensefinity.com'
 const DEVICES = '/devices'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+  }
 
   state = {
     log: [],
@@ -27,8 +31,7 @@ class App extends Component {
     logCount: this.state.logCount + 1,
   })
 
-  handleOpen = () => {
-    console.log('it works')
+  handleOpen = ( sensor ) => {
     this.writeLog('onOpen()')
   }
   
@@ -43,7 +46,7 @@ class App extends Component {
     console.log(`Option selected:`, selectedOption);
   }
 
-  fetchUsers() {
+  fetchSensors() {
     fetch(`${ORIGIN + DEVICES}`, {
       method: 'GET',
       headers: {
@@ -65,7 +68,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.fetchUsers();
+    this.fetchSensors();
   }
 
   render() {
@@ -104,7 +107,7 @@ class App extends Component {
                       }).reverse().map( sensor => {
                         return (
                           <Grid.Column>
-                            <Card sensor={ sensor } data-id={ sensor.id } onClick={ this.handleOpen }></Card>
+                            <Card sensor={ sensor } data-id={ sensor.id }></Card>
                           </Grid.Column>
                         );
                       })
