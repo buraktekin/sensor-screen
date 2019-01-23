@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Dropdown, Container, Grid, Segment, Button, Label } from 'semantic-ui-react'
+import { Dropdown, Grid, Segment } from 'semantic-ui-react'
 
-import { countryOptions } from './common/data'
-import Card from './components/Card'
+import Item from './components/Card'
 import './App.css';
 
 // API TOKEN
@@ -15,35 +14,33 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      modalOpen: false,
+      selectedOption: null,
+      searchOptions: null,
+      isLoading: true,
+      sensors: [],
+      error: null
+    }
   }
-
-  state = {
-    log: [],
-    logCount: 0,
-    selectedOption: null,
-    isLoading: true,
-    sensors: [],
-    error: null
-  }
-
-  writeLog = eventName => this.setState({
-    log: [`${new Date().toLocaleTimeString()}: ${eventName}`, ...this.state.log].slice(0, 20),
-    logCount: this.state.logCount + 1,
-  })
-
-  handleOpen = ( sensor ) => {
-    this.writeLog('onOpen()')
-  }
-  
-  handleClose = () => {
-    this.writeLog('onClose()')
-  }
-  
-  clearLog = () => this.setState({ log: [], logCount: 0 })
 
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
+  }
+
+  dataFormat = (data) => {
+    const formattedData = new Array();
+    data.map( item => {
+      formattedData.push(
+        {
+          key: item.id,
+          value: item.serialNumber,
+          text: item.id + ':: ' + item.name
+        }
+      )
+    })
+    return formattedData
   }
 
   fetchSensors() {
@@ -57,9 +54,9 @@ class App extends Component {
       }
     }).then(response => response.json())
       .then(data => {
-        console.log( data );
         this.setState({
           sensors: data.value.items,
+          searchOptions: this.dataFormat(data.value.items),
           isLoading: false,
         })
       })
@@ -67,74 +64,70 @@ class App extends Component {
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
+  filterSensors(event) {
+    var updatedList = this.state.sensors;
+    updatedList = updatedList.filter(function(item){
+      return item.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    this.setState({
+      sensors: updatedList
+    });
+  }
+
   componentDidMount() {
     this.fetchSensors();
+    this.setState({
+      sensors: this.state.sensors,
+    })
+    console.log(this.state.sensors)
   }
 
   render() {
-    const { isLoading, sensors, error, log, logCount, selectedOption } = this.state;
+    const { isLoading, sensors, error, searchOptions } = this.state;
 
     return (
       <React.Fragment>
-        <Container>
-          <Segment raised>
-            <Grid divided='vertically'>
-              <Grid.Row columns={1}>
-                <Grid.Column>
-                  <div className='header'>
-                    <img className='header--icon' src="https://img.icons8.com/nolan/64/000000/online.png" />
-                    <div className='company'>
-                      <h1 className='company--name'>FAZLA GIDA</h1>
-                      <h4 className='company--prefix'>Sensors </h4>
-                    </div>
+        <Segment raised>
+          <Grid divided='vertically'>
+            <Grid.Row columns={1}>
+              <Grid.Column>
+                <div className='header'>
+                  <img className='header--icon' src="https://img.icons8.com/nolan/50/000000/online.png" />
+                  <div className='company'>
+                    <h1 className='company--name'>FAZLAGIDA</h1>
+                    <h4 className='company--prefix'>Sensors </h4>
                   </div>
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row columns={1}>
-                <Grid.Column>
-                  <Dropdown placeholder='Filter Sensors' fluid multiple search selection options={countryOptions} />
-                </Grid.Column>
-              </Grid.Row>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={1}>
+              <Grid.Column>
+                <Dropdown placeholder='Filter Sensors' fluid search selection options={ searchOptions } onChange={ this.filterSensors } />
+              </Grid.Column>
+            </Grid.Row>
 
-              <Grid.Row columns={2}>
-                <Grid.Column>
-                  <Grid doubling columns={ 2 }>
-                    { error ? <p> { error.message } </p> : null }
-                    {!isLoading ? (
-                      sensors.sort((a,b) => {
-                        return new Date(a.aliveTime).getTime() - 
-                            new Date(b.aliveTime).getTime()
-                      }).reverse().map( sensor => {
-                        return (
-                          <Grid.Column>
-                            <Card sensor={ sensor } data-id={ sensor.id }></Card>
-                          </Grid.Column>
-                        );
-                      })
-                    ) : (
-                      <h3> Loading... </h3>
-                    )}
-                  </Grid>
-                </Grid.Column>
-
-                <Grid.Column>
-                  <Segment.Group>
-                    <Segment>
-                      <Button compact size='small' floated='right' onClick={this.clearLog}>
-                        Clear
-                      </Button>
-                      Event Log <Label circular>{logCount}</Label>
-                    </Segment>
-                    
-                    <Segment secondary>
-                      <pre>{log.map((e, i) => <div key={i}>{e}</div>)}</pre>
-                    </Segment>
-                  </Segment.Group>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Segment>
-        </Container>
+            <div className='ui horizontal-container'>
+              { error ? <p> { error.message } </p> : null }
+                {!isLoading ? (
+                  sensors.sort((a,b) => {
+                    return new Date(a.aliveTime).getTime() - 
+                        new Date(b.aliveTime).getTime()
+                  }).reverse().map( sensor => {
+                    console.log( sensor )
+                    return (
+                      <Grid.Column id={ sensor.id }>
+                        <Item sensor={ sensor } />
+                      </Grid.Column>
+                    );
+                  })
+                ) : (
+                  <h3> Loading... </h3>
+                )}
+            </div>
+          </Grid>
+          <h4>FAZLAGIDA</h4>
+        </Segment>
       </React.Fragment>
     )
   }

@@ -3,6 +3,12 @@
   --bold: 800;
 }
 
+body {
+  background-image: url(https://images.pexels.com/photos/5065/forest-big-aerial-area.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 body, h1, h2, h3, h4, h5, h6 {
   font-family: var(--font);
   font-weight: var(--bold);
@@ -40,6 +46,73 @@ body, h1, h2, h3, h4, h5, h6 {
   padding: 50px 0;
 }
 
+.ui.segment {
+  height: 100vh;
+  background: rgba(255, 255, 255, 0);
+}
+
+.ui.card, .ui.cards > .card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ui.horizontal-container {
+  display: flex;
+  position: absolute;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 200px;
+  padding: 50px 0;
+  bottom: 0;
+  -webkit-overflow-scrolling: touch;
+  background: rgb(17,0,36);
+  background: linear-gradient(180deg, rgba(17,0,36,0.1) 0%, rgba(76,9,121,0.4) 54%, rgba(63,10,113,0.69) 100%);
+}
+
+.ui.horizontal-container::-webkit-scrollbar {
+  display: none;
+}
+
+.ui.horizontal-container > .column {
+  flex: 0 0 auto;
+}
+
+.ui.pointer > .label.pointing {
+  display: none;
+  position: absolute;
+}
+
+.ui.pointer:after {
+  display: inline-block;
+  margin: 0 0 5px 0;
+  height: 1px;
+  content: " ";
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, .3);
+  width: 120px;
+}
+
+.ui.pointer:before {
+  display: inline-block;
+  margin: 0 0 5px 0;
+  height: 1px;
+  content: " ";
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, .3);
+  width: 120px;
+}
+
+.ui.olive.label, .ui.olive.labels .label {
+  background-color: rgb(50, 153, 110)!important;
+  border: 2px solid rgba(255, 255, 255, 1)!important;
+  color: #fff!important;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .header .company {
   position: relative;
   margin-bottom: 20px;
@@ -65,15 +138,23 @@ body, h1, h2, h3, h4, h5, h6 {
   animation:App-logo-spin 2s linear infinite;
 }
 
+.card-description-header {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
 .card-description-title {
   margin: 0;
   padding: 3px 0;
-  text-decoration: underline;
 }
 
 .card-description-text {
   margin-bottom: 10px;
   font-weight: 100;
+}
+
+.status {
+  text-align: right;
 }
 
 
