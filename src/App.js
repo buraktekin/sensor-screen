@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   dataFormat = (data) => {
-    const formattedData = new Array();
+    const formattedData = [];
     data.map( item => {
       formattedData.push(
         {
@@ -93,7 +93,7 @@ class App extends Component {
             <Grid.Row columns={1}>
               <Grid.Column>
                 <div className='header'>
-                  <img className='header--icon' src="https://img.icons8.com/nolan/50/000000/online.png" />
+                  <img className='header--icon' src="https://img.icons8.com/nolan/50/000000/online.png" alt='icon logo'/>
                   <div className='company'>
                     <h1 className='company--name'>FAZLAGIDA</h1>
                     <h4 className='company--prefix'>Sensors </h4>
@@ -114,7 +114,6 @@ class App extends Component {
                     return new Date(a.aliveTime).getTime() - 
                         new Date(b.aliveTime).getTime()
                   }).reverse().map( sensor => {
-                    console.log( sensor )
                     return (
                       <Grid.Column id={ sensor.id }>
                         <Item sensor={ sensor } />
@@ -122,11 +121,12 @@ class App extends Component {
                     );
                   })
                 ) : (
-                  <h3> Loading... </h3>
+                  <div className='loading-container'>
+                    <h3> Loading... </h3>
+                  </div>
                 )}
             </div>
           </Grid>
-          <h4>FAZLAGIDA</h4>
         </Segment>
       </React.Fragment>
     )

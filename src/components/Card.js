@@ -1,85 +1,18 @@
 import React, { Component } from 'react'
-import { Card, Icon, Label, Modal, Button, Header, Image } from 'semantic-ui-react'
+import { Icon, Label, Modal } from 'semantic-ui-react'
 import ReactTooltip from 'react-tooltip'
 import Moment from 'react-moment';
 
-import image from '../assets/images/sensor.png'
+import Sensor from './Sensor'
 
 // API TOKEN
 require('dotenv').config()
 
-const ORIGIN = 'https://api.sensefinity.com'
-const DEVICES = '/devices'
-const measurementTypes = [1, 7, 13, 23, 73]
-
 class CardView extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = { 
     open: false,
-    data: [],
-    temperatureData: [],
-    humidityData: [],
-    powerData: [],
-    rssi: [],
-    locationData: []
-  }
-
-  fetchMeasurement( sensor ) {
-    const DEVICE = `/serialnumber/${sensor.name}`
-    const MEASUREMENTS = '/measurements?type='
-    let url = ORIGIN + DEVICES  + DEVICE + MEASUREMENTS
-
-    measurementTypes.map( type => {
-      url = url + type
-      console.log( url )
-      fetch( url, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + process.env.REACT_APP_SENSEFINITY_TOKEN,
-          'X-Machinates-Application-Key': process.env.REACT_APP_XMACHINATES_APPLICATION_KEY
-        }
-      }).then(response => response.json())
-        .then(data => {
-          if(type === 1) {
-            this.setState({
-              temperatureData: data,
-            })
-          }
-          if(type === 7) {
-            this.setState({
-              powerData: data,
-            })
-          }
-          if(type === 13) {
-            this.setState({
-              rssi: data,
-            })
-          }
-          if(type === 23) {
-            this.setState({
-              humidityData: data,
-            })
-          }
-        })
-        // Catch any errors we hit and update the app
-        .catch(error => this.setState({ error, isLoading: false }));
-    })
-    console.log( this.state )
-  }
-
-  handleClick( sensor ) {
-    this.interval = setInterval(() => {
-      this.fetchMeasurement( sensor );
-    }, 10000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
+    data: []
   }
 
   truncate = (string, length) => {
@@ -98,12 +31,17 @@ class CardView extends Component {
 
     return (
       <div className='ui pointer'>
-        <Label circular color={'olive'} data-tip data-for={ 'sensor_' + sensor.id } onClick={ this.show('large') }>
-          { sensor.id } 
-        </Label>
-        <ReactTooltip id={ 'sensor_' + sensor.id } aria-haspopup='true' role='desc' place="top" effect="solid">
+        <div className='ui sensor'>
+          <Label className='ui sensor--detail' circular color={'olive'} data-tip data-for={ 'sensor_' + sensor.id } onClick={ this.show('fullscreen') }>
+            <Label className='ui inner-circle' circular color={'teal'}></Label>
+            <h3>{sensor.id}</h3>
+          </Label>
+        </div>
+        <ReactTooltip id={ 'sensor_' + sensor.id } aria-haspopup='true' role='tooltip' place="top" effect="solid">
           <div className='card-description-header'>
-            <h5 className='status'><Icon name='circle' size='small' color={'olive'} /> {sensor.status }</h5>
+            <h5 className='status'>
+              <Icon name='circle' size='small' color={'olive'} /> {sensor.status }
+            </h5>
             <h2>{ this.truncate(sensor.name, 18) }</h2>
           </div>
           <h4 className='card-description-title'>Device ID:</h4>
@@ -121,11 +59,9 @@ class CardView extends Component {
           <h4 className='card-description-title'>Device Position Long:</h4>
           <p className='card-description-text'>{sensor.positionLongitude }</p>
           <Modal basic dimmer='blurring' size={size} open={open} onClose={this.close}>
-            <Modal.Content image>
-              <Image wrapped size='medium' src={ image } />
+            <Modal.Content>
               <Modal.Description>
-                <Header inverted size='huge'>Device ID:: {this.props.sensor.id}</Header>
-                <Header inverted size='medium'>Serial Number:: {this.props.sensor.name}</Header>
+                <Sensor sensor={ sensor }/>
               </Modal.Description>
             </Modal.Content>
           </Modal>
