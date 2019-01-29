@@ -23,6 +23,11 @@ class Sensor extends Component {
     dateEnd: null,
   }
 
+  initialize() {
+    this.setTimeRange()
+    this.fetchMeasurement()
+  }
+
   setURL(type) {
     const DEVICE = `/serialnumber/${this.props.sensor.serialNumber}`
     const MEASUREMENTS = '/measurements?type='
@@ -31,8 +36,8 @@ class Sensor extends Component {
 
   setTimeRange() {
     this.setState({
-      dateStart: moment(new Date()).add(-58, 'hours').toISOString(),
-      dateEnd: moment(new Date()).add(-55, 'hours').toISOString()
+      dateStart: moment(new Date()).toISOString(),
+      dateEnd: moment(new Date()).add(-12, 'hours').toISOString()
     })
   }
 
@@ -67,12 +72,10 @@ class Sensor extends Component {
     .catch(error => this.setState({ error, isLoading: false }));
   }
 
-  componentWillMount() {
-    this.setTimeRange()
-    this.fetchMeasurement()
+  componentDidMount() {
+    this.initialize()
     this.interval = setInterval(() => {
-      this.setTimeRange()
-      this.fetchMeasurement()
+      this.initialize()
     }, 15000);
   }
   
@@ -111,13 +114,13 @@ class Sensor extends Component {
                           fluid
                           id='form-subcomponent-shorthand-input-first-name'
                           label='Start Date'
-                          placeholder='First name'
+                          placeholder='Select s start day to filter'
                         />
                         <Form.Input
                           fluid
                           id='form-subcomponent-shorthand-input-last-name'
                           label='End Date'
-                          placeholder='Last name'
+                          placeholder='Select an end date to filter'
                         />
                       </Form.Group>
                     </Form>

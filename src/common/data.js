@@ -8,7 +8,10 @@ export const tempOptions = ( dataset ) => {
       enabled: false
     },
     title: {
-      text: 'Temperature'
+      text: 'Temperature',
+      style: {
+        color: '#fff'
+      }
     },
     chart: {
       backgroundColor: 'transparent',
