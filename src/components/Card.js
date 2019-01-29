@@ -3,7 +3,7 @@ import { Icon, Label, Modal } from 'semantic-ui-react'
 import ReactTooltip from 'react-tooltip'
 import Moment from 'react-moment';
 
-import Sensor from './Sensor'
+import Sensor from '../containers/Sensor'
 
 // API TOKEN
 require('dotenv').config()
@@ -32,7 +32,12 @@ class CardView extends Component {
     return (
       <div className='ui pointer'>
         <div className='ui sensor'>
-          <Label className='ui sensor--detail' circular color={'olive'} data-tip data-for={ 'sensor_' + sensor.id } onClick={ this.show('fullscreen') }>
+          <Label 
+            className='ui sensor--detail' 
+            circular color={'olive'} 
+            data-tip data-for={ 'sensor_' + sensor.id } 
+            onClick={ this.show('fullscreen') }
+          >
             <Label className='ui inner-circle' circular color={'teal'}></Label>
             <h3>{sensor.id}</h3>
           </Label>
