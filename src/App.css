@@ -3,9 +3,28 @@
   --bold: 800;
 }
 
+body {
+  background-image: url(https://images.wallpaperscraft.com/image/godafoss_waterfall_iceland_118933_1920x1080.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 body, h1, h2, h3, h4, h5, h6 {
   font-family: var(--font);
   font-weight: var(--bold);
+}
+
+.loading-container {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, .9);
 }
 
 .App {
@@ -40,6 +59,96 @@ body, h1, h2, h3, h4, h5, h6 {
   padding: 50px 0;
 }
 
+.ui.segment {
+  height: 100vh;
+  background: rgba(255, 255, 255, 0);
+}
+
+.ui.card, .ui.cards > .card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ui.horizontal-container {
+  display: flex;
+  position: absolute;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 25vh;
+  padding: 50px 0 100px 0;
+  bottom: 0;
+  -webkit-overflow-scrolling: touch;
+  background: rgb(17,0,36);
+  background: linear-gradient(180deg, rgba(17,0,36,0.1) 0%, rgba(76,9,121,0.4) 54%, rgba(63,10,113,0.69) 100%);
+}
+
+.ui.horizontal-container::-webkit-scrollbar {
+  display: none;
+}
+
+.ui.horizontal-container > .column {
+  flex: 0 0 auto;
+}
+
+.ui.sensor:after {
+  display: inline-block;
+  margin: 0 0 15px 0;
+  height: 2px;
+  content: " ";
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, .6);
+  width: 150px;
+}
+
+.ui.sensor:before {
+  display: inline-block;
+  margin: 0 0 15px 0;
+  height: 2px;
+  content: " ";
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 150px;
+}
+
+.ui.sensor--detail {
+  position: relative;
+}
+
+.ui.sensor--detail h3 {
+  position: relative;
+  top: 15px;
+  left: -15px;
+}
+
+.ui.label.inner-circle {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 32px;
+  height: 32px;
+  z-index: -1;
+  background-color: #6d58adb0!important;
+  -webkit-animation: pulse 2s linear infinite;
+  -moz-animation: pulse 2s linear infinite;
+  animation: pulse 2s linear infinite;
+}
+
+.ui.olive.label, .ui.olive.labels .label {
+  position: relative;
+  top: 26px;
+  min-width: 0;
+  min-height: 0;
+  width: 6px!important;
+  height: 6px!important;
+  background-color: rgb(29, 158, 75)!important;
+  border: 2px solid rgba(255, 255, 255, 1)!important;
+  color: #fff!important;
+  cursor: pointer;
+}
+
 .header .company {
   position: relative;
   margin-bottom: 20px;
@@ -65,10 +174,19 @@ body, h1, h2, h3, h4, h5, h6 {
   animation:App-logo-spin 2s linear infinite;
 }
 
+.ui.card--content {
+  padding: 0 10px;
+  background-color: transparent;
+}
+
+.card-description-header {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
 .card-description-title {
   margin: 0;
   padding: 3px 0;
-  text-decoration: underline;
 }
 
 .card-description-text {
@@ -76,6 +194,27 @@ body, h1, h2, h3, h4, h5, h6 {
   font-weight: 100;
 }
 
+.status {
+  text-align: right;
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1.0);
+  }
+  25% {
+    transform: scale(1.25);
+  }
+  50% {
+      transform: scale(1.5);
+  }
+  75% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.0);
+  }
+}
 
 @keyframes App-logo-spin {
   from {
