@@ -16,7 +16,7 @@ class MainContainer extends Component {
       <React.Fragment>
         <Segment raised>
           <Grid divided='vertically'>
-            <Grid.Row columns={1}>
+            <Grid.Row columns={2}>
               <Grid.Column>
                 <div className='header'>
                   <img className='header--icon' src="https://img.icons8.com/nolan/50/000000/online.png" alt='icon logo'/>
@@ -26,8 +26,7 @@ class MainContainer extends Component {
                   </div>
                 </div>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
+
               <Grid.Column>
                 <Dropdown placeholder='Filter Sensors' fluid search selection  />
               </Grid.Column>

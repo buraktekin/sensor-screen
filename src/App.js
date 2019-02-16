@@ -3,11 +3,11 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 
-import './App.css';
 import { rootReducer } from './reducers'
 import { getSensorData } from './actions/SensorActions'
 import MainContainer from './containers/MainContainer'
 
+import './App.css';
 
 const store = createStore(rootReducer , {}, applyMiddleware(ReduxThunk))
 
