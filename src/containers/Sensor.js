@@ -69,24 +69,9 @@ class Sensor extends Component {
     const options = tempOptions( formattedData )
     return (
       !isMeasurementsLoading && (
-        <Grid relaxed columns={2}>
+        <Grid relaxed>
           <Grid.Row>
-            <Grid.Column width={4}>
-              <Card className='card--content'>
-                <h4 className='status'>{sensor.status }</h4>
-                <Image src={ image } size='large'/>
-                <h2 className='card-description-title'>Alive Time:</h2>
-                <p className='card-description-text'><Moment format="DD/MM/YYYY - hh:mm:ss A">{sensor.aliveTime }</Moment></p>
-                <h4 className='card-description-title'>Device ID:</h4>
-                <p className='card-description-text'>{sensor.id }</p>
-                <h4 className='card-description-title'>Serial Number:</h4>
-                <p className='card-description-text'>{sensor.serialNumber }</p>
-                <h4 className='card-description-title'>Signal Strength:</h4>
-                <p className='card-description-text'>{sensor.signalStrength }</p>
-              </Card>
-            </Grid.Column>
-
-            <Grid.Column width={12}>
+            <Grid.Column>
               <Segment>
                 <Grid divided='vertically'>
                   <Grid.Row columns={1}>

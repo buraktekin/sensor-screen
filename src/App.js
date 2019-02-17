@@ -30,20 +30,6 @@ class App extends Component {
     console.log(`Option selected:`, selectedOption);
   }
 
-  dataFormat = (data) => {
-    const formattedData = [];
-    data.map( item => {
-      formattedData.push(
-        {
-          key: item.id,
-          value: item.serialNumber,
-          text: item.id + ':: ' + item.name
-        }
-      )
-    })
-    return formattedData
-  }
-
   filterSensors(event) {
     var updatedList = this.state.sensors;
     updatedList = updatedList.filter(function(item){

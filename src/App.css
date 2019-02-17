@@ -64,12 +64,38 @@ body, h1, h2, h3, h4, h5, h6 {
   z-index: -1;
 }
 
+.ui.raised {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ui.grid.grid-row-3 {
+  display: grid;
+  height: 100%;
+  margin: 0;
+  grid-template-rows: 15% 60% 25%;
+}
+
+.ui.grid > .row {
+  align-items: center;
+  justify-content: center;
+  width: 100%!important;
+  height: 100%;
+  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .ui.card, .ui.cards>.card {
   min-height: 100%;
 }
 
 .ui.container {
   padding: 50px 0;
+}
+
+.ui.fullscreen.modal {
+  width: 100% !important;
 }
 
 .ui.segment {
@@ -83,16 +109,13 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 .ui.horizontal-container {
+  height: 100%;
   display: flex;
-  position: absolute;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 25vh;
-  padding: 50px 0 100px 0;
-  bottom: 0;
   background: transparent;
   -webkit-overflow-scrolling: touch;
 }
@@ -103,6 +126,12 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .ui.horizontal-container > .column {
   flex: 0 0 auto;
+}
+
+.ui.sensors {
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .ui.sensor:after {
