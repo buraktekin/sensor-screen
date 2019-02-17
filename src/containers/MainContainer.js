@@ -6,6 +6,20 @@ import Item from '../components/Card'
 
 class MainContainer extends Component {
 
+  dataFormat = (data) => {
+    const formattedData = [];
+    data.map( item => {
+      formattedData.push(
+        {
+          key: item.id,
+          value: item.serialNumber,
+          text: item.id + ':: ' + item.name
+        }
+      )
+    })
+    return formattedData
+  }
+
   componentDidMount() {
     this.props.getSensors();
   }
@@ -15,8 +29,8 @@ class MainContainer extends Component {
     return (
       <React.Fragment>
         <Segment raised>
-          <Grid divided='vertically'>
-            <Grid.Row columns={1}>
+          <Grid className='grid-row-3' divided='vertically'>
+            <Grid.Row columns={2}>
               <Grid.Column>
                 <div className='header'>
                   <img className='header--icon' src="https://img.icons8.com/nolan/50/000000/online.png" alt='icon logo'/>
@@ -26,32 +40,41 @@ class MainContainer extends Component {
                   </div>
                 </div>
               </Grid.Column>
-            </Grid.Row>
-            <Grid.Row columns={1}>
+
               <Grid.Column>
-                <Dropdown placeholder='Filter Sensors' fluid search selection  />
+                <Dropdown placeholder='Filter Sensors' fluid search selection options={this.dataFormat(sensors)} />
               </Grid.Column>
             </Grid.Row>
 
-            {<div className='ui horizontal-container'>
-              { error ? <p> { error.message } </p> : null }
-                {!isLoading ? (
-                  sensors.sort((a,b) => {
-                    return new Date(a.aliveTime).getTime() - 
-                        new Date(b.aliveTime).getTime()
-                  }).reverse().map( sensor => {
-                    return (
-                      <Grid.Column id={ sensor.id }>
-                        <Item sensor={ sensor } />
-                      </Grid.Column>
-                    );
-                  })
-                ) : (
-                  <div className='loading-container'>
-                    <h3> Loading... </h3>
-                  </div>
-                )}
+            <Grid.Row>
+              <Grid.Column>
+                <div className='content'></div>
+              </Grid.Column>
+            </Grid.Row>
+
+            <Grid.Row>
+              <Grid.Column className='ui sensors'>
+                {<div className='ui horizontal-container'>
+                { error ? <p> { error.message } </p> : null }
+                  {!isLoading ? (
+                    sensors.sort((a,b) => {
+                      return new Date(a.aliveTime).getTime() - 
+                          new Date(b.aliveTime).getTime()
+                    }).reverse().map( sensor => {
+                      return (
+                        <Grid.Column id={ sensor.id }>
+                          <Item sensor={ sensor } />
+                        </Grid.Column>
+                      );
+                    })
+                  ) : (
+                    <div className='loading-container'>
+                      <h3> Loading... </h3>
+                    </div>
+                  )}
                 </div>}
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Segment>
       </React.Fragment>

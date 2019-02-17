@@ -3,11 +3,11 @@ import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 
-import './App.css';
 import { rootReducer } from './reducers'
 import { getSensorData } from './actions/SensorActions'
 import MainContainer from './containers/MainContainer'
 
+import './App.css';
 
 const store = createStore(rootReducer , {}, applyMiddleware(ReduxThunk))
 
@@ -28,20 +28,6 @@ class App extends Component {
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
-  }
-
-  dataFormat = (data) => {
-    const formattedData = [];
-    data.map( item => {
-      formattedData.push(
-        {
-          key: item.id,
-          value: item.serialNumber,
-          text: item.id + ':: ' + item.name
-        }
-      )
-    })
-    return formattedData
   }
 
   filterSensors(event) {
