@@ -15,7 +15,7 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 #root {
-  background: rgba(31, 31, 31, 0.72);
+  background: rgba(31, 31, 31, 0.5);
 }
 
 .loading-container {
@@ -57,10 +57,10 @@ body, h1, h2, h3, h4, h5, h6 {
 
 #App-video {
   position: fixed;
-  right: 0;
+  right: -25vw;
   bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
+  width: 150vw;
+  height: 150vh;
   z-index: -1;
 }
 
