@@ -11,7 +11,7 @@ player = new YT.Player('player', {
     height: '100%',
     width: '100%',
     videoId: '9ZfN87gSjvI',
-    playerVars: { 'autoplay': 1, 'controls': 0 },
+    playerVars: { 'autoplay': 1, 'controls': 0, 'loop': 1 },
     events: {
     'onReady': onPlayerReady,
     'onStateChange': onPlayerStateChange
@@ -33,6 +33,9 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 var done = false;
 function onPlayerStateChange(event) {
+    if (e.data === YT.PlayerState.ENDED) {
+        player.playVideo(); 
+    }
     if (event.data == YT.PlayerState.PLAYING && !done) {
         setTimeout(muteVideo, 6000);
         done = true;
