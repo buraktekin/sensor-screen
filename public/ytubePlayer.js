@@ -33,7 +33,7 @@ function onPlayerReady(event) {
 //    the player should play for six seconds and then stop.
 var done = false;
 function onPlayerStateChange(event) {
-    if (e.data === YT.PlayerState.ENDED) {
+    if (event.data === YT.PlayerState.ENDED) {
         player.playVideo(); 
     }
     if (event.data == YT.PlayerState.PLAYING && !done) {
